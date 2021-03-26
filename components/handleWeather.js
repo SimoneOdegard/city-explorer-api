@@ -3,6 +3,7 @@ const superagent = require('superagent');
 const Forecast = require('./ForecastConstructor');
 
 function handleWeather(request,response){
+  console.log('handleWeather');
   const { city_name, lat, lon } = request.query;
   const url = `https://api.weatherbit.io/v2.0/forecast/daily`;
   const query = {
