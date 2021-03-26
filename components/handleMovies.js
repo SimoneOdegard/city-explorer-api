@@ -3,27 +3,26 @@ const superagent = require('superagent');
 const Movies = require('./movieConstructor');
 
 function handleMovies(request,response){
-  const { title, overview, average_votes } = request.query;
-  const url = `https://api.themoviedb.org/3/movie/550`;
+  console.log('made it to movies');
+  const { city_name } = request.query;
+  const url = `https://api.themoviedb.org/3/search/movie`;
   const query = {
-    key: process.env.MOVIE_API_KEY,
-    title: title,
-    overview: overview,
-    average_votes: average_votes
+    api_key: process.env.MOVIE_API_KEY,
+    query: city_name
   }
 
   superagent
   .get(url)
   .query(query)
   .then(superagentResults => {
-    const movieArray = superagentResults.body.data.map(item => {
+    const movieArray = superagentResults.body.results.map(item => {
       return new Movies(item);
     })
     console.log(movieArray);
     response.status(200).send(movieArray);
   })
   .catch(err => {
-    console.log('something went wrong with superagent call');
+    console.log('something went wrong with superagent call', err);
     response.status(500).send(err.message);
   });
 }
