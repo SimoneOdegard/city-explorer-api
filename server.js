@@ -13,6 +13,7 @@ app.use(cors());
 
 // require
 const handleWeather = require('./components/handleWeather');
+const handleMovies = require('./components/handleMovies');
 
 // PORT
 const PORT = process.env.PORT || 3002;
@@ -22,5 +23,6 @@ app.get('/', function (request, response) {
   response.send('Hello World')
 })
 app.get('/weather', handleWeather);
+app.get('/movies', handleMovies);
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
