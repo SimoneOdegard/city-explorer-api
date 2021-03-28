@@ -4,4 +4,4 @@ let cache = {
   
 };
 
-module.exports = { };
+module.exports = cache;
