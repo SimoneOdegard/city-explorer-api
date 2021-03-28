@@ -4,6 +4,7 @@ const superagent = require('superagent');
 
 function getWeather(request, response) {
   const { city_name, lat, lon } = request.query;
+  const key = `weather-${lat}-${lon}`;
   const url = 'http://api.weatherbit.io/v2.0/forecast/daily';
   const query = {
     key: process.env.WEATHER_API_KEY,
@@ -12,31 +13,31 @@ function getWeather(request, response) {
     lon: lon
   }
   
-  superagent
-  .get(url)
-  .query(query)
-  .then(summaries => {
-    const weatherArray = summaries.body.data.map(day => {
-      return new Weather(day);
-    })
-    console.log(weatherArray);
-    response.status(200).send(weatherArray);
-  })
-  .catch((error => {
-    console.error(error);
-    response.status(500).send('Sorry. Something went wrong!');
-  });
-
-  if (cache[key] && (Date.now() - cache[key].timestamp < 50000)) {
-    console.log('Cache hit');
+  
+  if (cache[key] && (Date.now() - cache[key].timestamp < 300000)) {
+    console.log('Cache hit weather');
+    response.status(200).send(cache[key].data);
   } else {
-    console.log('Cache miss');
+    console.log('Cache miss weather');
     cache[key] = {};
     cache[key].timestamp = Date.now();
-    cache[key].data = superagent.get(url)
-    .then(response => parseWeather(response.body));
+
+    superagent
+    .get(url)
+    .query(query)
+    .then(summaries => {
+      const weatherArray = parseWeather (summaries.body);
+      weatherArray.then (day => {
+        cache[key].data = day;
+        response.status(200).send(cache[key].data);
+      })
+    })
+    .catch((error => {
+      console.error(error);
+      response.status(500).send('Sorry. Something went wrong!');
+    }));
   }
-  
+
   return cache[key].data;
 
 }  
@@ -54,7 +55,7 @@ function parseWeather(weatherData) {
 
 class Weather {
   constructor(day) {
-    this.forecast = day.description;
+    this.description = `Low of ${day.low_temp} and high of ${day.high_temp} with ${day.weather.description}`;
     this.date = day.datetime;
   }
 }

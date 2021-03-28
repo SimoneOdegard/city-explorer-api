@@ -1,33 +1,45 @@
 # City Explorer API
 
 **Author**: Simone Odegard
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 5.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+This is the backend server for City-Explorer. It contains the weather API and the movie API that is used for the front-end's search results.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+1. Bring in and install the following: Express, cors, dotenv, superagent
+1. Connect server to front end
+1. Add weather API
+1. Set up the weather module, then connect it to the server
+1. Add movie API
+1. Set up the movie module, then connect it to the server
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+- dotenv
+- Express
+- Cors
+- Superagent
+- JavaScript
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+- 03-23-2021 Initial set up of server
+- 03-24-2021 Added weather API
+- 03-25-2021 Refactored server by adding ForecastConstructor.js and handleWeather.js
+- 03-26-2021 Added movie API
+- 03-27-2021 Debugged starter-code. Linked starter-code weather.js and movie.js to server.js
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+- Chance Harmon
+- Peter Staker
 
 **Name of feature:** Initialization
 **Estimate of time needed to complete:** 1 hour
 **Start time:** 2:10pm
-**Finish time:**
-**Actual time needed to complete:**
+**Finish time:** 3:30pm
+**Actual time needed to complete:** ~ 1 hour 15 minutes
 
-**Name of feature:**
-**Estimate of time needed to complete:**
-**Start time:**
-**Finish time:**
-**Actual time needed to complete:**
+**Name of feature:** Debugging
+**Estimate of time needed to complete:** 5 hours
+**Start time:** 1:00pm
+**Finish time:** 5:06pm 
+**Actual time needed to complete:** ~ 4 hours
